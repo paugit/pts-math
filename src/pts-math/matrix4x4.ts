@@ -326,14 +326,14 @@ export class Matrix4x4 {
         let sideY = forwardZ * up.values[0] - forwardX * up.values[2]
         let sideZ = forwardX * up.values[1] - forwardY * up.values[0]
 
-        /*l = sideX * sideX + sideY * sideY + sideZ * sideZ
+        l = sideX * sideX + sideY * sideY + sideZ * sideZ
 
         if (l > 0) {
             l = 1.0 / Math.sqrt(l)
             sideX *= l
             sideY *= l
             sideZ *= l
-        }*/
+        }
 
         const upX = sideY * forwardZ - sideZ * forwardY
         const upY = sideZ * forwardX - sideX * forwardZ
