@@ -20,7 +20,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
-import { Matrix3x3 } from "matrix3x3"
+import { Matrix3x3 } from "./matrix3x3"
 
 export class Vector3 {
     public readonly values: Float32Array = new Float32Array(3)
