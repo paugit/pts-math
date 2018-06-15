@@ -49,6 +49,10 @@ export class Matrix2x2 {
         this.values[3] = t1 * m.values[2] + t3 * m.values[3]
     }
 
+    public Determinant() {
+        return this.values[0] * this.values[3] - this.values[1] * this.values[2]
+    }
+
     public static Copy(src: Matrix2x2, dst: Matrix2x2) {
         dst.values[0] = src.values[0]
         dst.values[1] = src.values[1]
