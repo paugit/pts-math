@@ -96,6 +96,22 @@ export class Vector4 {
         return this.values[3]
     }
 
+    public set width(width: number) {
+        this.values[2] = width
+    }
+
+    public get width(): number {
+        return this.values[2]
+    }
+
+    public set height(height: number) {
+        this.values[3] = height
+    }
+
+    public get height(): number {
+        return this.values[3]
+    }
+
     public get length(): number {
         return Math.sqrt(this.values[0] * this.values[0] + this.values[1] * this.values[1] + this.values[2] * this.values[2] + this.values[3] * this.values[3])
     }
@@ -253,7 +269,7 @@ export class Vector4 {
         return a.values[0] * b.values[0] + a.values[1] * b.values[1] + a.values[2] * b.values[2] + a.values[3] * b.values[3]
     }
 
-    public static TransformMatrix4x4(out:Vector4, v:Vector4, m: Matrix4x4) {
+    public static TransformMatrix4x4(out: Vector4, v: Vector4, m: Matrix4x4) {
         out.values[0] = m.values[0] * v.values[0] + m.values[4] * v.values[1] + m.values[8] * v.values[2] + m.values[12] * v.values[3]
         out.values[1] = m.values[1] * v.values[0] + m.values[5] * v.values[1] + m.values[9] * v.values[2] + m.values[13] * v.values[3]
         out.values[2] = m.values[2] * v.values[0] + m.values[6] * v.values[1] + m.values[10] * v.values[2] + m.values[14] * v.values[3]

@@ -46,6 +46,22 @@ export class Vector2 {
         return this.values[1]
     }
 
+    public set width(width: number) {
+        this.values[0] = width
+    }
+
+    public get width(): number {
+        return this.values[0]
+    }
+
+    public set height(height: number) {
+        this.values[1] = height
+    }
+
+    public get height(): number {
+        return this.values[1]
+    }
+
     public get length(): number {
         return Math.sqrt(this.values[0] * this.values[0] + this.values[1] * this.values[1])
     }
