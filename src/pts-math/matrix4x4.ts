@@ -424,6 +424,15 @@ export class Matrix4x4 {
         this.values[15] = t3 * m.values[12] + t7 * m.values[13] + t11 * m.values[14] + t15 * m.values[15]
     }
 
+    public Determinant() {
+        return (
+            this.values[0] * (this.values[5] * (this.values[10] * this.values[15] - this.values[11] * this.values[14]) - this.values[6] * (this.values[9] * this.values[15] - this.values[11] * this.values[13]) + this.values[7] * (this.values[9] * this.values[14] - this.values[10] * this.values[13])) -
+            this.values[1] * (this.values[4] * (this.values[10] * this.values[15] - this.values[11] * this.values[14]) - this.values[6] * (this.values[8] * this.values[15] - this.values[11] * this.values[12]) + this.values[7] * (this.values[8] * this.values[14] - this.values[10] * this.values[12])) +
+            this.values[2] * (this.values[4] * (this.values[9] * this.values[15] - this.values[11] * this.values[13]) - this.values[5] * (this.values[8] * this.values[15] - this.values[11] * this.values[12]) + this.values[7] * (this.values[8] * this.values[13] - this.values[9] * this.values[12])) -
+            this.values[3] * (this.values[4] * (this.values[9] * this.values[14] - this.values[10] * this.values[13]) - this.values[5] * (this.values[8] * this.values[14] - this.values[10] * this.values[12]) + this.values[6] * (this.values[8] * this.values[13] - this.values[9] * this.values[12]))
+        )
+    }
+
     public static Copy(src: Matrix4x4, dst: Matrix4x4) {
         dst.values[0] = src.values[0]
         dst.values[1] = src.values[1]
