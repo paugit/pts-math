@@ -440,6 +440,78 @@ export class Matrix4x4 {
         return this.values[0] * d0 - this.values[1] * d1 + this.values[2] * d2 - this.values[3] * d3
     }
 
+    public Invert() {
+        const a = this.values[10] * this.values[15] - this.values[11] * this.values[14]
+        const b = this.values[9] * this.values[15] - this.values[11] * this.values[13]
+        const c = this.values[9] * this.values[14] - this.values[10] * this.values[13]
+        const d = this.values[8] * this.values[15] - this.values[11] * this.values[12]
+        const e = this.values[8] * this.values[14] - this.values[10] * this.values[12]
+        const f = this.values[8] * this.values[13] - this.values[9] * this.values[12]
+
+        const d0 = this.values[5] * a - this.values[6] * b + this.values[7] * c
+        let d1 = this.values[4] * a - this.values[6] * d + this.values[7] * e
+        const d2 = this.values[4] * b - this.values[5] * d + this.values[7] * f
+        let d3 = this.values[4] * c - this.values[5] * e + this.values[6] * f
+
+        let det = this.values[0] * d0 - this.values[1] * d1 + this.values[2] * d2 - this.values[3] * d3
+
+        if (det == 0) {
+            return false
+        }
+
+        d1 *= -1.0
+        d3 *= -1.0
+
+        const g = this.values[6] * this.values[15] - this.values[7] * this.values[14]
+        const h = this.values[5] * this.values[15] - this.values[7] * this.values[13]
+        const i = this.values[5] * this.values[14] - this.values[6] * this.values[13]
+        const j = this.values[4] * this.values[15] - this.values[7] * this.values[12]
+        const k = this.values[4] * this.values[14] - this.values[6] * this.values[12]
+        const l = this.values[4] * this.values[13] - this.values[5] * this.values[12]
+        const m = this.values[6] * this.values[11] - this.values[7] * this.values[10]
+        const n = this.values[5] * this.values[11] - this.values[7] * this.values[9]
+        const o = this.values[5] * this.values[10] - this.values[6] * this.values[9]
+        const p = this.values[4] * this.values[11] - this.values[7] * this.values[8]
+        const q = this.values[4] * this.values[10] - this.values[6] * this.values[8]
+        const r = this.values[4] * this.values[9] - this.values[5] * this.values[8]
+
+        const d4 = -(this.values[1] * a - this.values[2] * b + this.values[3] * c)
+        const d5 = this.values[0] * a - this.values[2] * d + this.values[3] * e
+        const d6 = -(this.values[0] * b - this.values[1] * d + this.values[3] * f)
+        const d7 = this.values[0] * c - this.values[1] * e + this.values[2] * f
+
+        const d8 = this.values[1] * g - this.values[2] * h + this.values[3] * i
+        const d9 = -(this.values[0] * g - this.values[2] * j + this.values[3] * k)
+        const d10 = this.values[0] * h - this.values[1] * j + this.values[3] * l
+        const d11 = -(this.values[0] * i - this.values[1] * k + this.values[2] * l)
+
+        const d12 = -(this.values[1] * m - this.values[2] * n + this.values[3] * o)
+        const d13 = this.values[0] * m - this.values[2] * p + this.values[3] * q
+        const d14 = -(this.values[0] * n - this.values[1] * p + this.values[3] * r)
+        const d15 = this.values[0] * o - this.values[1] * q + this.values[2] * r
+
+        det = 1.0 / det
+
+        this.values[0] = d0 * det
+        this.values[1] = d4 * det
+        this.values[2] = d8 * det
+        this.values[3] = d12 * det
+        this.values[4] = d1 * det
+        this.values[5] = d5 * det
+        this.values[6] = d9 * det
+        this.values[7] = d13 * det
+        this.values[8] = d2 * det
+        this.values[9] = d6 * det
+        this.values[10] = d10 * det
+        this.values[11] = d14 * det
+        this.values[12] = d3 * det
+        this.values[13] = d7 * det
+        this.values[14] = d11 * det
+        this.values[15] = d15 * det
+
+        return true
+    }
+
     public static Copy(src: Matrix4x4, dst: Matrix4x4) {
         dst.values[0] = src.values[0]
         dst.values[1] = src.values[1]
