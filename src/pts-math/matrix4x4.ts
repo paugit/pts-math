@@ -425,12 +425,19 @@ export class Matrix4x4 {
     }
 
     public Determinant() {
-        return (
-            this.values[0] * (this.values[5] * (this.values[10] * this.values[15] - this.values[11] * this.values[14]) - this.values[6] * (this.values[9] * this.values[15] - this.values[11] * this.values[13]) + this.values[7] * (this.values[9] * this.values[14] - this.values[10] * this.values[13])) -
-            this.values[1] * (this.values[4] * (this.values[10] * this.values[15] - this.values[11] * this.values[14]) - this.values[6] * (this.values[8] * this.values[15] - this.values[11] * this.values[12]) + this.values[7] * (this.values[8] * this.values[14] - this.values[10] * this.values[12])) +
-            this.values[2] * (this.values[4] * (this.values[9] * this.values[15] - this.values[11] * this.values[13]) - this.values[5] * (this.values[8] * this.values[15] - this.values[11] * this.values[12]) + this.values[7] * (this.values[8] * this.values[13] - this.values[9] * this.values[12])) -
-            this.values[3] * (this.values[4] * (this.values[9] * this.values[14] - this.values[10] * this.values[13]) - this.values[5] * (this.values[8] * this.values[14] - this.values[10] * this.values[12]) + this.values[6] * (this.values[8] * this.values[13] - this.values[9] * this.values[12]))
-        )
+        const a = this.values[10] * this.values[15] - this.values[11] * this.values[14]
+        const b = this.values[9] * this.values[15] - this.values[11] * this.values[13]
+        const c = this.values[9] * this.values[14] - this.values[10] * this.values[13]
+        const d = this.values[8] * this.values[15] - this.values[11] * this.values[12]
+        const e = this.values[8] * this.values[14] - this.values[10] * this.values[12]
+        const f = this.values[8] * this.values[13] - this.values[9] * this.values[12]
+
+        const d0 = this.values[5] * a - this.values[6] * b + this.values[7] * c
+        const d1 = this.values[4] * a - this.values[6] * d + this.values[7] * e
+        const d2 = this.values[4] * b - this.values[5] * d + this.values[7] * f
+        const d3 = this.values[4] * c - this.values[5] * e + this.values[6] * f
+
+        return this.values[0] * d0 - this.values[1] * d1 + this.values[2] * d2 - this.values[3] * d3
     }
 
     public static Copy(src: Matrix4x4, dst: Matrix4x4) {
