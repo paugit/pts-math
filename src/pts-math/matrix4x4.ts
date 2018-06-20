@@ -568,4 +568,76 @@ export class Matrix4x4 {
         out.values[14] = a.values[2] * b.values[12] + a.values[6] * b.values[13] + a.values[10] * b.values[14] + a.values[14] * b.values[15]
         out.values[15] = a.values[3] * b.values[12] + a.values[7] * b.values[13] + a.values[11] * b.values[14] + a.values[15] * b.values[15]
     }
+
+    public static Invert(out: Matrix4x4, m: Matrix4x4) {
+        const a = m.values[10] * m.values[15] - m.values[11] * m.values[14]
+        const b = m.values[9] * m.values[15] - m.values[11] * m.values[13]
+        const c = m.values[9] * m.values[14] - m.values[10] * m.values[13]
+        const d = m.values[8] * m.values[15] - m.values[11] * m.values[12]
+        const e = m.values[8] * m.values[14] - m.values[10] * m.values[12]
+        const f = m.values[8] * m.values[13] - m.values[9] * m.values[12]
+
+        const d0 = m.values[5] * a - m.values[6] * b + m.values[7] * c
+        let d1 = m.values[4] * a - m.values[6] * d + m.values[7] * e
+        const d2 = m.values[4] * b - m.values[5] * d + m.values[7] * f
+        let d3 = m.values[4] * c - m.values[5] * e + m.values[6] * f
+
+        let det = m.values[0] * d0 - m.values[1] * d1 + m.values[2] * d2 - m.values[3] * d3
+
+        if (det == 0) {
+            return false
+        }
+
+        d1 *= -1.0
+        d3 *= -1.0
+
+        const g = m.values[6] * m.values[15] - m.values[7] * m.values[14]
+        const h = m.values[5] * m.values[15] - m.values[7] * m.values[13]
+        const i = m.values[5] * m.values[14] - m.values[6] * m.values[13]
+        const j = m.values[4] * m.values[15] - m.values[7] * m.values[12]
+        const k = m.values[4] * m.values[14] - m.values[6] * m.values[12]
+        const l = m.values[4] * m.values[13] - m.values[5] * m.values[12]
+        const mm = m.values[6] * m.values[11] - m.values[7] * m.values[10]
+        const n = m.values[5] * m.values[11] - m.values[7] * m.values[9]
+        const o = m.values[5] * m.values[10] - m.values[6] * m.values[9]
+        const p = m.values[4] * m.values[11] - m.values[7] * m.values[8]
+        const q = m.values[4] * m.values[10] - m.values[6] * m.values[8]
+        const r = m.values[4] * m.values[9] - m.values[5] * m.values[8]
+
+        const d4 = -(m.values[1] * a - m.values[2] * b + m.values[3] * c)
+        const d5 = m.values[0] * a - m.values[2] * d + m.values[3] * e
+        const d6 = -(m.values[0] * b - m.values[1] * d + m.values[3] * f)
+        const d7 = m.values[0] * c - m.values[1] * e + m.values[2] * f
+
+        const d8 = m.values[1] * g - m.values[2] * h + m.values[3] * i
+        const d9 = -(m.values[0] * g - m.values[2] * j + m.values[3] * k)
+        const d10 = m.values[0] * h - m.values[1] * j + m.values[3] * l
+        const d11 = -(m.values[0] * i - m.values[1] * k + m.values[2] * l)
+
+        const d12 = -(m.values[1] * mm - m.values[2] * n + m.values[3] * o)
+        const d13 = m.values[0] * mm - m.values[2] * p + m.values[3] * q
+        const d14 = -(m.values[0] * n - m.values[1] * p + m.values[3] * r)
+        const d15 = m.values[0] * o - m.values[1] * q + m.values[2] * r
+
+        det = 1.0 / det
+
+        out.values[0] = d0 * det
+        out.values[1] = d4 * det
+        out.values[2] = d8 * det
+        out.values[3] = d12 * det
+        out.values[4] = d1 * det
+        out.values[5] = d5 * det
+        out.values[6] = d9 * det
+        out.values[7] = d13 * det
+        out.values[8] = d2 * det
+        out.values[9] = d6 * det
+        out.values[10] = d10 * det
+        out.values[11] = d14 * det
+        out.values[12] = d3 * det
+        out.values[13] = d7 * det
+        out.values[14] = d11 * det
+        out.values[15] = d15 * det
+
+        return true
+    }
 }
